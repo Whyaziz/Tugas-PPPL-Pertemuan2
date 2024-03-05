@@ -1,7 +1,8 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
+import java.util.HashMap;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class WalletTest {
 
     private Wallet wallet;
@@ -9,6 +10,11 @@ public class WalletTest {
     @BeforeEach
     void setUp() {
         wallet = new Wallet("John Doe");
+    }
+
+    @AfterEach
+    void ClearUp() {
+        wallet = null;
     }
 
     @Test
@@ -42,7 +48,7 @@ public class WalletTest {
         String card = "LineBank Debit Card";
         wallet.addCard(card);
         wallet.takeCard(card);
-        Assertions.assertFalse(wallet.getCards().contains("Credit Card"));
+        Assertions.assertFalse(wallet.getCards().contains(card));
     }
 
     @Test
